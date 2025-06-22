@@ -1,0 +1,1998 @@
+openapi: 3.0.3
+
+info:
+  title: Management Bills
+  description: API de Gestão de Boletos para empresas conveniadas através de uma workspace de cobrança.
+  version: 1.0.0
+
+servers:
+  - url: https://trust-open-h.api.santander.com.br/collection_bill_management/v2 - Ambiente de Homologação
+  - url: https://trust-open.api.santander.com.br/collection_bill_management/v2 - Ambiente de Produção
+
+paths:
+  /workspaces:
+    post:
+      summary: Registra um espaço de trabalho de cobranças do cliente
+      description: Registra um espaço de trabalho de cobranças do cliente
+      tags:
+        - Workspaces
+      requestBody:
+        description: Salva os dados do usuário
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWorkspaceBase'
+            examples:
+              retorno:
+                $ref: '#/components/examples/RequestWorkspaceExample'
+      responses:
+        '201':
+          description: Resposta para criação de dados de cobrança com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWorkspaceBase'
+              examples:
+                retorno:
+                  $ref: '#/components/examples/ResponseWorkspaceExample'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+    get:
+      summary: Retorna uma lista de espaços de trabalho de cobranças de clientes
+      description: Retorna uma lista de espaços de trabalho de cobranças de clientes
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/LimitTemplate'
+        - $ref: '#/components/parameters/OffsetTemplate'
+        - $ref: '#/components/parameters/SortTemplate'
+      responses:
+        '200':
+          description: Retorna uma lista de espaços de trabalho de pagamentos de clientes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageableWorkspace'
+              examples:
+                retorno:
+                  $ref: '#/components/examples/PageableResponseWorkspaceExample'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - InternalToken: []
+          ApiKeyQuery: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyQuery: []
+
+  /workspaces/{workspace_id}:
+    get:
+      summary: Consulta dados de um espaço de trabalho de cobranças do cliente
+      description: Consulta dados de um espaço de trabalho de cobranças do cliente
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      responses:
+        '200':
+          description: Resposta para criação de dados de pagamento com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWorkspaceBase'
+              examples:
+                retorno:
+                  $ref: '#/components/examples/ResponseWorkspaceExample'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '410':
+          $ref: '#/components/responses/Gone'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - InternalToken: []
+          ApiKeyQuery: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyQuery: []
+    patch:
+      summary: Atualiza os dados de um espaço de trabalho de cobranças do cliente
+      description: Atualiza os dados de um espaço de trabalho de cobranças do cliente
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      requestBody:
+        description: Salva os dados do usuário
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchRequestWorkspaceBase'
+            examples:
+              retorno4:
+                $ref: '#/components/examples/PatchRequestWorkspaceExample'
+      responses:
+        '200':
+          description: Atualização dos dados de pagamento com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWorkspaceBase'
+              examples:
+                retorno4:
+                  $ref: '#/components/examples/ResponseWorkspaceExample'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '410':
+          $ref: '#/components/responses/Gone'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+    delete:
+      summary: Cancela um espaço de trabalho de cobranças do cliente
+      description: Cancela um espaço de trabalho de cobranças do cliente
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '410':
+          $ref: '#/components/responses/Gone'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+
+  /workspaces/{workspace_id}/bank_slips:
+    post:
+      summary: Inicia a cobrança de um título
+      description: >-
+        Inicia um cobrança de título por linha digitável/código de barras no
+        Hub de Cobrança
+      tags:
+        - Bank Slip
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBankslip'
+      responses:
+        '201':
+          description: Inicia a cobrança de um título
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseBankSlipBase'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+    patch:
+      summary: Inicia a atualização da cobrança de um título
+      description: >-
+        Inicia a atualização de uma cobrança de título por linha digitável/código de barras no
+        Hub de Cobrança
+      tags:
+        - Bank Slip
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      requestBody:
+        description: Salva os dados do usuário
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBankSlipBase'
+            examples:
+              retorno:
+                $ref: '#/components/examples/RequestWorkspaceExamplePatch1'
+              retorno1:
+                $ref: '#/components/examples/RequestWorkspaceExamplePatch2'
+              retorno2:
+                $ref: '#/components/examples/RequestWorkspaceExamplePatch3'
+       
+      responses:
+        '201':
+          description: Inicia a cobrança de um título
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchResponseBankslipBase'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+  
+  /workspaces/{workspace_id}/bank_slips/{bank_slip_id}:
+    get:
+      tags:
+        - Bank Slip
+      summary: Get a BankSlip
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+        - $ref: '#/components/parameters/BankSlipId'
+      responses:
+        '200':
+          description: Resposta da Cobrança de um título
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseBankSlipBase'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "410":
+          $ref: '#/components/responses/Gone'
+        "406":
+          $ref: '#/components/responses/NotAcceptable'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - InternalToken: []
+
+  /bills:
+    get:
+      summary: Retorna uma lista de boletos
+      description: Retorna uma lista de boletos
+      tags:
+        - Bill
+      parameters:
+        - $ref: '#/components/parameters/BankNumber'
+        - $ref: '#/components/parameters/BeneficiaryCode'
+      responses:
+        '200':
+          description: Retorna uma lista de espaços de trabalho de pagamentos de clientes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageableBankSlip'
+              examples:
+                retorno:
+                  $ref: '#/components/examples/BankSlipSimpleResponseExample1'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - InternalToken: []
+          ApiKeyQuery: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyQuery: []
+  
+  /bills/{bill_id}:
+    get:
+      summary: 'Retorna uma lista de boletos com base no filtro'
+      description: 'Retorna uma lista de boletos com base no filtro'
+      tags:
+        - Bill
+      parameters:
+        - $ref: '#/components/parameters/SearchType'
+        - $ref: '#/components/parameters/BillId'
+      responses:
+        '200':
+          description: Retorna uma lista de espaços de trabalho de pagamentos de clientes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageableBankSlip'
+              examples:
+                retorno:
+                  $ref: '#/components/examples/BankSlipSimpleResponseExample2'
+                retorno2:
+                  $ref: '#/components/examples/BankSlipSimpleResponseExample3'
+                retorno3:
+                  $ref: '#/components/examples/BankSlipSimpleResponseExample4'
+                retorno4:
+                  $ref: '#/components/examples/BankSlipSimpleResponseExample5'
+                retorno5:
+                  $ref: '#/components/examples/BankSlipSimpleResponseExample6'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      security:
+        - InternalToken: []
+          ApiKeyHeader: []
+        - InternalToken: []
+          ApiKeyQuery: []
+        - ExternalToken: []
+          ApiKeyHeader: []
+        - ExternalToken: []
+          ApiKeyQuery: []  
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      description: Header api key for new api consumption.
+      name: api-key
+      in: header
+    ApiKeyQuery:
+      type: apiKey
+      description: Query param api key for new api consumption.
+      name: _apiKey
+      in: query
+    ExternalToken:
+      type: http
+      description: JWE token for external new api consumption.
+      scheme: bearer
+      bearerFormat: JWE
+    InternalToken:
+      type: oauth2
+      description: JWT token for internal new api consumption.
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso74-custom-admin-iam-dev.azure.paas.santanderbr.dev.corp/auth/
+          refreshUrl: https://sso74-custom-admin-iam-dev.azure.paas.santanderbr.dev.corp/auth/
+          scopes: {}
+
+  schemas:
+    LimitTypeTemplate:
+      maximum: 50
+      minimum: 1
+      exclusiveMinimum: false
+      type: integer
+      description: Number of records to be returned
+      default: 10
+      x-santander-dictionary-entity: LimitTypeTemplate
+      x-santander-security-cdo-level: confidential
+      x-santander-security-encrypt-type: normal
+    OffsetTypeTemplate:
+      minimum: 0
+      exclusiveMinimum: false
+      type: integer
+      description: Number of records to be skipped
+      default: 0
+      x-santander-dictionary-entity: OffsetTypeTemplate
+      x-santander-security-cdo-level: confidential
+      x-santander-security-encrypt-type: normal
+    SortTypeTemplate:
+      maxItems: 2
+      uniqueItems: true
+      type: array
+      description: Sort the result
+      items:
+        pattern: ^(\+|\-)([a-zA-Z]+)(\.([a-zA-Z]+))*(.\*)?$
+        type: string
+        x-santander-security-cdo-level: confidential
+        x-santander-security-encrypt-type: normal
+      x-santander-dictionary-entity: SortTypeTemplate
+    PageableTemplate:
+      required:
+        - _content
+        - _pageable
+      type: object
+      properties:
+        _pageable:
+          required:
+            - _limit
+            - _offset
+            - _pageElements
+            - _pageNumber
+            - _totalElements
+            - _totalPages
+          type: object
+          description: Paginação
+          properties:
+            _limit:
+              maximum: 50
+              minimum: 1
+              exclusiveMinimum: false
+              type: integer
+              description: Total máximo que cada página trará na consulta.
+              x-santander-security-cdo-level: confidential
+              x-santander-security-encrypt-type: normal
+            _offset:
+              minimum: 0
+              exclusiveMinimum: false
+              type: integer
+              description: Registros serem deslocados na consulta.
+              x-santander-security-cdo-level: confidential
+              x-santander-security-encrypt-type: normal
+            _pageNumber:
+              minimum: 0
+              exclusiveMinimum: false
+              type: integer
+              description: Número da página na consulta.
+              x-santander-security-cdo-level: confidential
+              x-santander-security-encrypt-type: normal
+            _pageElements:
+              minimum: 0
+              exclusiveMinimum: false
+              type: integer
+              description: Quantidades de registros na página.
+              x-santander-security-cdo-level: confidential
+              x-santander-security-encrypt-type: normal
+            _totalPages:
+              minimum: 1
+              exclusiveMinimum: false
+              type: integer
+              description: Quantidade total de páginas para essa consulta.
+              x-santander-security-cdo-level: confidential
+              x-santander-security-encrypt-type: normal
+            _totalElements:
+              minimum: 0
+              exclusiveMinimum: false
+              type: integer
+              description: Quantidade total de registros informadas nessa consulta.
+              x-santander-security-cdo-level: confidential
+              x-santander-security-encrypt-type: normal
+        _content:
+          minItems: 0
+          type: array
+          items:
+            type: object
+      description: Pageable template
+      x-santander-dictionary-entity: PageableTemplate
+    ErrorTemplate:
+      required:
+        - _details
+        - _errorCode
+        - _message
+        - _timestamp
+        - _traceId
+      type: object
+      properties:
+        _errorCode:
+          minimum: 0
+          type: integer
+          description: Código de erro
+        _message:
+          maxLength: 30
+          type: string
+          description: Mensagem de erro
+        _details:
+          maxLength: 100
+          type: string
+          description: Detalhe da mensagem de erro
+        _timestamp:
+          type: string
+          description: Data e hora que acontece o erro
+          format: date-time
+        _traceId:
+          type: string
+          description: Trace id é o identificador único entre todas as chamadas onde rastreamos todas as transações
+          format: uuid
+        _errors:
+          type: array
+          description: Informação adicional sobre o erro
+          items:
+            required:
+              - _message
+            type: object
+            properties:
+              _code:
+                minimum: 0
+                type: integer
+                description: Código de erro específico
+              _field:
+                maxLength: 50
+                type: string
+                description: Identificação do campo com erro
+              _message:
+                maxLength: 100
+                type: string
+                description: Descrição da mensagem de erro
+      description: Dados do erro
+      x-santander-dictionary-entity: ErrorTemplate
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+
+    WorkspaceIdType:
+      type: string
+      description: Id de identificação da WorkSpace
+      example: 68153ebf-545b-47cb-96b2-e5c548ba0027
+      default: 68153ebf-545b-47cb-96b2-e5c548ba0027
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    Environment:
+      type: string
+      description: Ambiente de processamento do movimento
+      enum:
+        - PRODUCAO
+        - TESTE
+      example: PROCUCAO
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    NsuCode:
+      type: string
+      description: Identificador do Boleto
+      minLength: 1
+      maxLength: 20
+      pattern: ^[A-Za-z0-9]{1,20}$
+      example: fd119dc4d48f460ab751
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    NsuDate:
+      type: string
+      description: Data do NSU gerado pelo Beneficiário
+      pattern: YYYY-MM-DD
+      example: 2022-12-12
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    CovenantCode:
+      type: string
+      description: Código do Convênio do Cliente
+      minLength: 1
+      maxLength: 9
+      pattern: ^[0-9]{1,9}$
+      example: "123456789"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    BankNumber:
+      type: string
+      description: Nosso Número
+      minLength: 1
+      maxLength: 13
+      pattern: ^[0-9]{1,13}$
+      example: "1234565432123"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    ClientNumber:
+      type: string
+      description: Seu Número
+      minLength: 1
+      maxLength: 15
+      pattern: ^[0-9a-zA-Z ]{1,15}$
+      example: fd119Dc4d48F460
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    DueDate:
+      type: string
+      description: Data de Vencimento
+      pattern: YYYY-MM-DD
+      example: 2022-12-12
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    IssueDate:
+      type: string
+      description: Data de Emissão
+      pattern: YYYY-MM-DD
+      example: 2022-12-12
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    ParticipantCode:
+      type: string
+      description: Controle do Participante
+      minLength: 1
+      maxLength: 25
+      example: ^[0-9a-zA-Z ]{1,25}$
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    NominalValue:
+      type: string
+      description: Valor Nominal
+      minimum: 0.0
+      maxLength: 16
+      pattern: ^[0-9]{1,13}\.[0-9]{2}$
+      example: "10.15"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    DocumentType:
+      type: string
+      description: Tipo do documento
+      example: CPF
+      enum:
+        - CPF
+        - CNPJ
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    DocumentNumber:
+      type: string
+      description: Número do documento
+      example: 09615865832
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    Payer:
+      type: object
+      required: ["address", "city", "documentNumber", "documentType", "name", "neighborhood", "state", "zipCode"]
+      title: Payer
+      properties:
+        name:
+          type: string
+          description: Nome do pagador
+          minLength: 1
+          maxLength: 40
+          example: João da Silva
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        documentType:
+          $ref: '#/components/schemas/DocumentType'
+        documentNumber:
+          $ref: '#/components/schemas/DocumentNumber'
+        address:
+          type: string
+          description: Endereço do Pagador
+          minLength: 1
+          maxLength: 40
+          example: Rua XV de Maio
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        neighborhood:
+          type: string
+          description: Bairro do Pagador
+          minLength: 1
+          maxLength: 30
+          example: Vila Industrial
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        city:
+          type: string
+          description: Cidade do Pagador
+          minLength: 1
+          maxLength: 20
+          example: São Paulo
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        state:
+          type: string
+          description: Estado do Pagador
+          example: SP
+          enum:
+            - RR
+            - AM
+            - AP
+            - PA
+            - AC
+            - RO
+            - TO
+            - MA
+            - PI
+            - CE
+            - RN
+            - PB
+            - PE
+            - AL
+            - SE
+            - BA
+            - MT
+            - DF
+            - GO
+            - MS
+            - MG
+            - ES
+            - RJ
+            - SP
+            - PR
+            - SC
+            - RS
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        zipCode:
+          type: string
+          pattern: ^[0-9]{5}-[0-9]{3}$
+          example: 09761-233
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+    Beneficiary:
+      type: object
+      required: ["documentNumber", "documentType", "name"]
+      title: Payer
+      properties:
+        name:
+          type: string
+          description: Nome do beneficiário
+          minLength: 1
+          maxLength: 40
+          example: João da Silva
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        documentType:
+          $ref: '#/components/schemas/DocumentType'
+        documentNumber:
+          $ref: '#/components/schemas/DocumentNumber'
+    DocumentKind:
+      type: string
+      description: Espécie do Documento
+      example: DUPLICATA_MERCANTIL
+      enum:
+        - DUPLICATA_MERCANTIL
+        - DUPLICATA_SERVICO
+        - NOTA_PROMISSORIA
+        - NOTA_PROMISSORIA_RURAL
+        - RECIBO
+        - APOLICE_SEGURO
+        - BOLETO_CARTAO_CREDITO
+        - BOLETO_PROPOSTA
+        - BOLETO_DEPOSITO_APORTE
+        - CHEQUE
+        - NOTA_PROMISSORIA_DIRETA
+        - OUTROS
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    DiscountBase:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Valor do Desconto
+          pattern: ^[0-9]{1,13}\.[0-9]{2}$
+          example: 5.50
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        limitDate:
+          type: string
+          description: Data Limite
+          pattern: YYYY-MM-DD
+          example: 2022-12-12
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+    Discount:
+      type: object
+      required: ["type"]
+      title: Discount
+      properties:
+        type:
+          type: string
+          description: Tipo do Desconto
+          example: VALOR_DATA_FIXA
+          enum:
+            - ISENTO
+            - VALOR_DATA_FIXA
+            - VALOR_DIA_CORRIDO
+            - VALOR_DIA_UTIL
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        discountOne:
+          $ref: '#/components/schemas/DiscountBase'
+        discountTwo:
+          $ref: '#/components/schemas/DiscountBase'
+        discountThree:
+          $ref: '#/components/schemas/DiscountBase'
+    FinePercentage:
+      type: string
+      description: Percentual de Multa
+      pattern: ^[0-9]{1,3}\.[0-9]{2}$
+      example: "97.80"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    FineQuantityDays:
+      type: string
+      description: Quantidade de Dias de Multa
+      pattern: ^[0-9]{1,2}
+      example: "5"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    InterestPercentage:
+      type: string
+      description: Percentual de Juros
+      pattern: ^[0-9]{1,3}\.[0-9]{2}$
+      example: "5.00"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    DeductionValue:
+      type: string
+      description: Valor do Desconto
+      pattern: ^[0-9]{1,13}\.[0-9]{2}$
+      example: "10.00"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    ProtestType:
+      type: string
+      description: Tipo do Protesto
+      example: SEM_PROTESTO
+      enum:
+        - SEM_PROTESTO
+        - DIAS_CORRIDOS
+        - DIAS_UTEIS
+        - CADASTRO_CONVENIO
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    ProtestQuantityDays:
+      type: string
+      description: Quantidade de dias para protesto
+      minimum: 0
+      maximum: 99
+      minLength: 1
+      maxLength: 2
+      pattern: \d{1,2}
+      example: "32"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    WriteOffQuantityDays:
+      type: string
+      description: Quantidade de dias para baixa
+      minimum: 0
+      maximum: 90
+      minLength: 1
+      maxLength: 2
+      pattern: \d{1,2}
+      example: "32"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    PaymentType:
+      type: string
+      description: Tipo do Pagamento
+      example: REGISTRO
+      enum:
+        - REGISTRO
+        - DIVERGENTE
+        - PARCIAL
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    ParcelsQuantity:
+      type: string
+      description: Quantidade de Parciais
+      minimum: 0
+      maximum: 99
+      maxLength: 2
+      pattern: \d{1,2}
+      example: "32"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    ValueType:
+      type: string
+      description: Tipo do Valor
+      example: PERCENTUAL
+      enum:
+        - PERCENTUAL
+        - VALOR
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    MinValueOrPercentage:
+      type: string
+      description: Valor Mínimo
+      pattern: \d{15}$\.\d{2}
+      example: "32.06"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    MaxValueOrPercentage:
+      type: string
+      description: Valor Máximo
+      pattern: \d{15}$\.\d{2}
+      example: "49.36"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    IofPercentage:
+      type: string
+      description: Percentual de IOF
+      pattern: \d{3}$\.\d{5}
+      example: "32.45325"
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    Sharing:
+      type: object
+      description: Partilha
+      properties:
+        code:
+          type: string
+          description: Código de Partilha
+          pattern: ^\d{2}$
+          example: "12"
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        value:
+          type: string
+          description: Valor da Partilha
+          pattern: \d{13}$\.\d{2}
+          example: "132.5"
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    Key:
+      type: object
+      description: Chave Dict
+      properties:
+        type:
+          type: string
+          description: Tipo de Chave Dict
+          example: CPF
+          enum:
+            - CPF
+            - CNPJ
+            - CELULAR
+            - EMAIL
+            - EVP
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        dictKey:
+          maxLength: 77
+          type: string
+          description: Chave Dict
+          example: "09463589723"
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+    TxId:
+      type: string
+      description: Identificador da Transação
+      example: fd119dc4d48f460ab751
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    Messages:
+      type: array
+      description: Mensagens em linha
+      minLength: 0
+      maxLength: 4
+      example:
+        - mensagem um
+        - mensagem dois
+      items:
+        maxLength: 100
+        type: string
+        example: mensagem um
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    BarCode:
+      type: string
+      description: Código de Barras
+      example: fd119Dc4d48F460
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    DigitableLine:
+      type: string
+      description: Linha Digitável
+      example: fd119Dc4d48F460
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    QrCodePix:
+      type: string
+      description: Qrcode Pix
+      example: fd119Dc4d48F460
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    QrCodeUrl:
+      type: string
+      description: URL Pix
+      example: fd119Dc4d48F460
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    EntryDate:
+      type: string
+      description: Data de Entrada
+      pattern: YYYY-MM-DD
+      example: 2022-12-12
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+
+    PageableWorkspace:
+      description: Número da página de workspace
+      required:
+        - _content
+        - _pageable
+      allOf:
+        - $ref: '#/components/schemas/PageableTemplate'
+        - type: object
+          properties:
+            _content:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResponseWorkspaceBase'
+    RequestWorkspaceBase:
+      type: object
+      required: ["type","covenants"]
+      title: WorkspaceRequest
+      properties:
+        id:
+          type: string
+          description: Id para identificação da Workspace
+          example: 92446ad6-d52a-4141-bee4-58a019358faa
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        type:
+          type: string
+          description: Classificação da workspace
+          enum:
+            - BILLING
+          example: BILLING
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        tags:
+          type: array
+          description: "Tag de identificação da cobrança<br> *Tag deve ter no máximo 20 e o número de tags não deve ser superior a 5"
+          example:
+            - client:123
+            - id:12345
+          items:
+            type: string
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        covenants:
+          title: Lista de Convênios
+          properties:
+            code:
+              type: string
+              description: Id de identificação do convênio
+              example: 00001
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+    RequestBankSlipBase:
+      type: object
+      required: ["environment", "nsuCode", "nsuDate", "covenantCode", "bankNumber", "dueDate", "issueDate", "nominalValue", "payer", "documentKind", "paymentType"]
+      title: BankSlipRequest
+      properties:
+        environment:
+          $ref: '#/components/schemas/Environment'
+        nsuCode:
+          $ref: '#/components/schemas/NsuCode'
+        nsuDate:
+          $ref: '#/components/schemas/NsuDate'
+        covenantCode:
+          $ref: '#/components/schemas/CovenantCode'
+        bankNumber:
+          $ref: '#/components/schemas/BankNumber'
+        clientNumber:
+          $ref: '#/components/schemas/ClientNumber'
+        dueDate:
+          $ref: '#/components/schemas/DueDate'
+        issueDate:
+          $ref: '#/components/schemas/IssueDate'
+        participantCode:
+          $ref: '#/components/schemas/ParticipantCode'
+        nominalValue:
+          $ref: '#/components/schemas/NominalValue'
+        payer:
+          $ref: '#/components/schemas/Payer'
+        beneficiary:
+          $ref: '#/components/schemas/Beneficiary'
+        documentKind:
+          $ref: '#/components/schemas/DocumentKind'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        finePercentage:
+          $ref: '#/components/schemas/FinePercentage'
+        fineQuantityDays:
+          $ref: '#/components/schemas/FineQuantityDays'
+        interestPercentage:
+          $ref: '#/components/schemas/InterestPercentage'
+        deductionValue:
+          $ref: '#/components/schemas/DeductionValue'
+        protestType:
+          $ref: '#/components/schemas/ProtestType'
+        protestQuantityDays:
+          $ref: '#/components/schemas/ProtestQuantityDays'
+        writeOffQuantityDays:
+          $ref: '#/components/schemas/WriteOffQuantityDays'
+        paymentType:
+          $ref: '#/components/schemas/PaymentType'
+        parcelsQuantity:
+          $ref: '#/components/schemas/ParcelsQuantity'
+        valueType:
+          $ref: '#/components/schemas/ValueType'
+        minValueOrPercentage:
+          $ref: '#/components/schemas/MinValueOrPercentage'
+        maxValueOrPercentage:
+          $ref: '#/components/schemas/MaxValueOrPercentage'
+        iofPercentage:
+          $ref: '#/components/schemas/IofPercentage'
+        sharing:
+          type: array
+          description: Lista de Partilha
+          maxLength: 4
+          minLength: 0
+          items:
+            $ref: '#/components/schemas/Sharing'
+        key:
+          $ref: '#/components/schemas/Key'
+        txId:
+          $ref: '#/components/schemas/TxId'
+        messages:
+          $ref: '#/components/schemas/Messages'
+
+    ResponseWorkspaceBase:
+      type: object
+      title: WorkspaceResponse
+      required: ["id","type", "status", "creationDate", "tags", "covenants"]
+      properties:
+        id:
+          type: string
+          description: Id para identificação da Workspace
+          example: 92446ad6-d52a-4141-bee4-58a019358faa
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        type:
+          type: string
+          description: Classificação da workspace
+          enum:
+            - BILLING
+          example: BILLING
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        status:
+          type: string
+          description: Status da workspace
+          example: ACTIVE
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        creationDate:
+          type: string
+          description: Data de criação da Workspace
+          example: 2022-09-23
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        tags:
+          type: array
+          description: "Tag de identificação da cobrança<br> *Tag deve ter no máximo 20 e o número de tags não deve ser superior a 5"
+          example:
+            - client:123
+            - id:12345
+          items:
+            type: string
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        covenants:
+          title: Lista de Convênios
+          properties:
+            code:
+              type: string
+              description: Id de identificação do convênio
+              example: 00001
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+    ResponseBankSlipBase:
+      type: object
+      required: ["environment", "nsuCode", "nsuDate", "covenantCode", "bankNumber", "dueDate", "issueDate", "nominalValue", "payer", "documentKind", "paymentType"]
+      title: BankSlipRequest
+      properties:
+        environment:
+          $ref: '#/components/schemas/Environment'
+        nsuCode:
+          $ref: '#/components/schemas/NsuCode'
+        nsuDate:
+          $ref: '#/components/schemas/NsuDate'
+        covenantCode:
+          $ref: '#/components/schemas/CovenantCode'
+        bankNumber:
+          $ref: '#/components/schemas/BankNumber'
+        clientNumber:
+          $ref: '#/components/schemas/ClientNumber'
+        dueDate:
+          $ref: '#/components/schemas/DueDate'
+        issueDate:
+          $ref: '#/components/schemas/IssueDate'
+        participantCode:
+          $ref: '#/components/schemas/ParticipantCode'
+        nominalValue:
+          $ref: '#/components/schemas/NominalValue'
+        payer:
+          $ref: '#/components/schemas/Payer'
+        beneficiary:
+          $ref: '#/components/schemas/Beneficiary'
+        documentKind:
+          $ref: '#/components/schemas/DocumentKind'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        finePercentage:
+          $ref: '#/components/schemas/FinePercentage'
+        fineQuantityDays:
+          $ref: '#/components/schemas/FineQuantityDays'
+        interestPercentage:
+          $ref: '#/components/schemas/InterestPercentage'
+        deductionValue:
+          $ref: '#/components/schemas/DeductionValue'
+        protestType:
+          $ref: '#/components/schemas/ProtestType'
+        protestQuantityDays:
+          $ref: '#/components/schemas/ProtestQuantityDays'
+        writeOffQuantityDays:
+          $ref: '#/components/schemas/WriteOffQuantityDays'
+        paymentType:
+          $ref: '#/components/schemas/PaymentType'
+        parcelsQuantity:
+          $ref: '#/components/schemas/ParcelsQuantity'
+        valueType:
+          $ref: '#/components/schemas/ValueType'
+        minValueOrPercentage:
+          $ref: '#/components/schemas/MinValueOrPercentage'
+        maxValueOrPercentage:
+          $ref: '#/components/schemas/MaxValueOrPercentage'
+        iofPercentage:
+          $ref: '#/components/schemas/IofPercentage'
+        sharing:
+          type: array
+          description: Lista de Partilha
+          maxLength: 4
+          minLength: 0
+          items:
+            $ref: '#/components/schemas/Sharing'
+        key:
+          $ref: '#/components/schemas/Key'
+        txId:
+          $ref: '#/components/schemas/TxId'
+        messages:
+          $ref: '#/components/schemas/Messages'
+        barcode:
+          $ref: '#/components/schemas/BarCode'
+        digitableLine:
+          $ref: '#/components/schemas/DigitableLine'
+        entryDate:
+          $ref: '#/components/schemas/EntryDate'
+        qrCodePix:
+          $ref: '#/components/schemas/QrCodePix'
+        qrCodeUrl:
+          $ref: '#/components/schemas/QrCodeUrl'
+    PatchResponseBankslipBase:
+      title: BankSlipRequest
+      properties:
+        covenantCode:
+          $ref: '#/components/schemas/CovenantCode'
+        bankNumber:
+          $ref: '#/components/schemas/BankNumber'
+        message:
+          type: string
+          description: Status do boleto
+          example: Alteração realizada  com sucesso
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+    PatchRequestWorkspaceBase:
+      type: object
+      required: ["type","covenants"]
+      title: WorkspaceRequest
+      properties:
+        tags:
+          type: array
+          description: "Tag de identificação da cobrança<br> *Tag deve ter no máximo 20 e o número de tags não deve ser superior a 5"
+          example:
+            - client:123
+            - id:12345
+          items:
+            type: string
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        covenants:
+          title: Lista de Convênios
+          properties:
+            code:
+              type: string
+              description: Id de identificação do convênio
+              example: 00001
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+    
+    SimplePageableTemplate:
+      required:
+        - _content
+        - _pageable
+      type: object
+      properties:
+        _pageable:
+          required:
+            - _moreElements
+          type: object
+          properties:
+            _moreElements:
+              type: boolean
+              description: Has more elements that were not returned.
+        _content:
+          maxItems: 10
+          minItems: 0
+          type: array
+          items:
+            type: object
+            x-santander-security-cdo-level: public
+            x-santander-security-encrypt-type: public
+      description: Pageable template
+      x-santander-dictionary-entity: SimplePageableTemplate
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    PageableBankSlip:
+      description: Pageable Bank Slip
+      allOf:
+        - $ref: '#/components/schemas/SimplePageableTemplate'
+        - type: object
+          properties:
+            _content:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/BankSlipSimpleResponse'
+                x-santander-security-cdo-level: public
+                x-santander-security-encrypt-type: public
+    BankSlipSimpleResponse:
+      type: object
+      properties:
+        returnCode:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Return code
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        documentNumber:
+          maxLength: 14
+          minLength: 0
+          type: string
+          description: Beneficiary document number (CPF/CNPJ)
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        beneficiaryCode:
+          type: integer
+          description: >-
+            Unique customer code registered in the Santander bank collection
+            system
+          format: int64
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        bankNumber:
+          type: integer
+          description: >-
+            Unique bank slip number per beneficiary, assigned by the Santander
+            bank or by the customer
+          format: int64
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        clientNumber:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Code that identifies the bank slip for the beneficiary
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        dueDate:
+          maxLength: 10
+          minLength: 0
+          type: string
+          description: Due date of bank slip
+          format: date
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        nominalValue:
+          type: integer
+          description: Nominal value of bank slip
+          format: int64
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        issueDate:
+          maxLength: 10
+          minLength: 0
+          type: string
+          description: Issue date of bank slip
+          format: date
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        participantCode:
+          type: string
+          description: Participant code
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        status:
+          type: string
+          description: Status code of bank slip
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        statusComplement:
+          type: string
+          description: Status complement
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        interestValue:
+          type: string
+          description: Interest value
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        discountValue:
+          type: string
+          description: Discount value
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        deductionValue:
+          type: string
+          description: Deduction value
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+        paidValue:
+          type: string
+          description: Paid value
+          x-santander-security-cdo-level: confidential
+          x-santander-security-encrypt-type: normal
+    
+    
+    BankSlipId:
+      type: string
+      description: Grupo de Informações que identificam o boleto
+      example: 123.2022-12-12.P.123.123
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+
+    ExpandTypeTemplate:
+      type: string
+      description: Tipo de consulta
+      example: default
+      enum:
+        - default
+        - bankslip
+        - settlement
+        - registry
+        - duplicate
+      x-santander-dictionary-entity: ExpandTypeTemplate
+      x-santander-security-cdo-level: confidential
+      x-santander-security-encrypt-type: normal
+  examples:
+    RequestWorkspaceExample:
+      summary: BILLING
+      value:
+        id: c48b2e67-210e-4fd8-892b-cc2fbca5356a
+        type: BILLING
+        covenants:
+          - code: 00001
+          - code: 00002
+          - code: 00003
+        tags:
+          - client:123
+          - 02/10/2022
+    PatchRequestWorkspaceExample:
+      summary: BILLING
+      value:
+        covenants:
+          - code: 00001
+          - code: 00002
+          - code: 00003
+        tags:
+          - client:123
+          - 02/10/2022
+
+    ResponseWorkspaceExample:
+      summary: BILLING
+      value:
+        id: c48b2e67-210e-4fd8-892b-cc2fbca5356a
+        type: BILLING
+        status: ACTIVE
+        creationDate: '2022-08-04T17:18:11.828Z'
+        covenants:
+          - code: 00001
+          - code: 00002
+          - code: 00003
+        tags:
+          - client:123
+          - 02/10/2022
+    PageableResponseWorkspaceExample:
+      summary: BILLING
+      value:
+        _pageable:
+          _limit: 50
+          _offset: 0
+          _pageNumber: 0
+          _pageElements: 0
+          _totalPages: 1
+          _totalElements: 0
+        _content:
+          - id: c48b2e67-210e-4fd8-892b-cc2fbca5356a
+            type: BILLING
+            status: ACTIVE
+            creationDate: '2022-08-04T17:18:11.828Z'
+            covenants:
+              - code: 00001
+              - code: 00002
+              - code: 00003
+            tags:
+              - client:123
+              - 02/10/2022
+
+    
+    RequestWorkspaceExamplePatch1:
+      summary: UPDATE DUEDATE
+      value:
+        covenantCode: '123'
+        bankNumber: '123'
+        dueDate: '2022-11-30'
+    RequestWorkspaceExamplePatch2:
+      summary: UPDATE OPERATION
+      value:
+        covenantCode: '123'
+        bankNumber: '123'
+        operation: 'PROTESTAR'
+    RequestWorkspaceExamplePatch3:
+      summary: UPDATE MIN AND MAX VALUE
+      value:
+        covenantCode: '123'
+        bankNumber: '123'
+        valueType: 'VALOR'
+        minValueOrPercentage: "10.00"
+        maxValueOrPercentage: "20.00"
+    
+    BankSlipSimpleResponseExample1:
+      summary: GET ALL BILLS EXEMPLO 1
+      value:
+        _pageable:
+          _limit: 50
+          _offset: 0
+          _pageNumber: 0
+          _pageElements: 0
+          _totalPages: 1
+          _totalElements: 0
+        _content:
+            returnCode: '000 - Consulta realizada com sucesso'
+            documentNumber: '87626170000164'
+            beneficiaryCode: '123456'
+            bankNumber: '123456'
+            clientNumber: '123456'
+            dueDate: '2023-03-01'
+            nominalValue: '30.00'
+            issueDate: '2023-03-01'
+            participantCode: '123456'
+            status: 'Liquidado'
+            statusComplement: ''
+            interestValue: '10.00'
+            discountValue: '10.00'
+            deductionValue: '10.00'
+            paidValue: '10.00'
+    BankSlipSimpleResponseExample2:
+      summary: GET BILLS EXEMPLO - DEFAULT
+      value:
+        returnCode: '000 - Consulta realizada com sucesso'
+        documentNumber: '87626170000164'
+        beneficiaryCode: '123456'
+        bankNumber: '123456'
+        clientNumber: '123456'
+        dueDate: '2023-03-01'
+        nominalValue: '30.00'
+        issueDate: '2023-03-01'
+    BankSlipSimpleResponseExample3:
+      summary: GET BILLS EXEMPLO - BANKSLIP
+      value:
+        returnCode: '000 - Consulta realizada com sucesso'
+        documentNumber: '87626170000164'
+        beneficiaryCode: '123456'
+        bankNumber: '123456'
+        clientNumber: '123456'
+        dueDate: '2023-03-01'
+        nominalValue: '30.00'
+        issueDate: '2023-03-01'
+        participantCode: '123456'
+        status: 'Liquidado'
+        statusComplement: ''
+        interestValue: '10.00'
+        discountValue: '10.00'
+        deductionValue: '10.00'
+        paidValue: '10.00'
+        bankslipData:
+          portfolio: 1
+          modality: 101
+          branch: 49
+          accountNumber: 130029776
+          processingDate: 2023-03-01
+          entryDate: 2022-12-12
+          protestDescription: NAO PROTESTAR
+          protestQuantityDays: 0
+          writeOffIndicativeDescription: BAIXAR / DEVOLVER
+          writeOffQuantityDays: 1
+          documentKind: DM
+          currency: REAL
+          currencyQuantity: '0.00000000'
+          ddaPayerIndicative: S
+          warranty: N
+          paymentType: '1'
+          valueOrPercentageIndicative: '0'
+          minValueOrPercentage: 0.00000
+          maxValueOrPercentage: 0.00000
+          parcelsQuantity: 0
+          paidParcelsQuantity: 0
+          amountReceived: 0.00
+          interestPercentage: 0.00
+          iofPercentage: 0.00000
+          digitableLine: '03399021995170000062624418101010292330000000199'
+          barCode: '03392923300000001999021951700000622441810101'
+        payerData:
+          payerDocumentType: 1
+          payerDocumentNumber: '000023213847437'
+          payerName: MARCO CHAVES PIX HK
+          payerAddress: AV. INTERLAGOS3501 SETOR ROXO
+          payerNeighborhood: INTERLAGOS
+          payerZipCode: '04543011'
+          payerCounty: SAO PAULO
+          payerStateAbbreviation: SP
+          payerEmail: ""
+        guarantorData:
+          guarantorDocumentType: 2
+          guarantorDocumentNumber: '097146938000156'
+          guarantorName: LOJA EDEN
+    BankSlipSimpleResponseExample4:
+      summary: GET BILLS EXEMPLO - SETTLEMENT
+      value:
+        returnCode: '000 - Consulta realizada com sucesso'
+        documentNumber: '87626170000164'
+        beneficiaryCode: '123456'
+        bankNumber: '123456'
+        clientNumber: '123456'
+        dueDate: '2023-03-01'
+        nominalValue: '30.00'
+        issueDate: '2023-03-01'
+        participantCode: '123456'
+        status: 'Liquidado'
+        settlementData:
+          - settlementDescription: "LIQUIDACAO INTERNET BANKING"
+            settlementDate: "2023-01-17"
+            receivingBankCode: 33
+            receivingBranch: 19
+            interestValue: 0.00
+            otherValues: 0.00
+            deductionValue: 0.00
+            discountValue: 0.00
+            settlementValue: 1.99
+            settlementIofValue: 0.00
+            settlementCreditDate: "2023-01-18"
+            settlementCreditedValue: 1.99
+            settlementDutyValue: 0.00
+        writeOffData:
+          - writeOffDescription: ""
+            writeOffDate: null
+            writeOffValue: 0.00
+            writeOffDutyValue: 0.00
+    BankSlipSimpleResponseExample5:
+      summary: GET BILLS EXEMPLO - REGISTRY
+      value:
+        returnCode: '000 - Consulta realizada com sucesso'
+        documentNumber: '87626170000164'
+        beneficiaryCode: '123456'
+        bankNumber: '123456'
+        clientNumber: '123456'
+        dueDate: '2023-03-01'
+        nominalValue: '30.00'
+        issueDate: '2023-03-01'
+        participantCode: '123456'
+        status: 'Liquidado'
+        registryData:
+          protestOrderIssueDate: null
+          registrySentDate: null
+          registryWithdrawalDate:: null
+          protestDate: null
+          protestOrderCancellationDate: null
+          protestOrderGenerationDate: null
+          registryWithdrawalRequestDate: null
+          protestSuspensionDate: null
+          registryWithdrawalDispatchDateTime: null
+          protestCancellationDate: null
+          protestCancellationRequestDate: null
+          protestCancellationReleaseDate: null
+          protestCancellationSentDateTime: null
+    BankSlipSimpleResponseExample6:
+      summary: GET BILLS EXEMPLO - DUPLICATE
+      value:
+        {}
+         
+        
+  responses:
+    NoContent:
+      description: Resource Deleted
+    TooManyRequests:
+      description: Too Many Requests
+    NotAcceptable:
+      description: Not Acceptable
+    UnsupportedMediaType:
+      description: Unsupported Media Type
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+    Gone:
+      description: Resource deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+    UnprocessableEntity:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+    NotImplemented:
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+
+  parameters:
+    LimitTemplate:
+      name: _limit
+      in: query
+      description: Total máximo que cada página trará na consulta
+      required: false
+      style: form
+      explode: true
+      schema:
+        $ref: '#/components/schemas/LimitTypeTemplate'
+      examples:
+        "200-Found":
+          summary: Successfully found
+          value: 2
+        "400-WrongExpandAttribute":
+          summary: Wrong expand attribute
+          value: 2
+        "500-InternalServerError":
+          summary: Internal server error
+          value: 10
+      x-santander-dictionary-entity: LimitParameterTemplate
+    OffsetTemplate:
+      name: _offset
+      in: query
+      description: Registros serem deslocados na consulta
+      required: false
+      style: form
+      explode: true
+      schema:
+        $ref: '#/components/schemas/OffsetTypeTemplate'
+      examples:
+        "200-Found":
+          summary: Successfully found
+          value: 0
+        "400-WrongExpandAttribute":
+          summary: Wrong expand attribute
+          value: 0
+        "500-InternalServerError":
+          summary: Internal server error
+          value: 50
+      x-santander-dictionary-entity: OffsetParameterTemplate
+    SortTemplate:
+      name: _sort
+      in: query
+      description: Filtro para consulta paginada
+      required: false
+      style: form
+      explode: false
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/SortTypeTemplate'
+      examples:
+        "200-Found":
+          summary: Successfully found
+          value:
+            - +age
+            - -name
+        "400-WrongExpandAttribute":
+          summary: Wrong expand attribute
+          value:
+            - +age
+            - -name
+        "500-InternalServerError":
+          summary: Internal server error
+          value:
+            - +ages
+            - -names
+      x-santander-dictionary-entity: SortParameterTemplate
+    WorkspaceId:
+      name: workspace_id
+      in: path
+      description: Identificador da Worskpace no Hub
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/WorkspaceIdType'
+    BankSlipId:
+      name: bank_slip_id
+      in: path
+      description: Identificador do boleto de Cobrança no Hub
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/BankSlipId'
+    BankNumber:
+      name: bankNumber
+      in: query
+      description: Nosso Número do Boleto
+      required: true
+      explode: false
+      schema:
+        $ref: '#/components/schemas/BankNumber'
+    BeneficiaryCode:
+      name: beneficiaryCode
+      in: query
+      description: Código do Convênio do Beneficiário
+      required: true
+      explode: false
+      schema:
+        $ref: '#/components/schemas/CovenantCode'    
+    SearchType:
+      name: tipoConsulta
+      in: query
+      description: Tipo de consulta do boleto
+      required: false
+      style: form
+      explode: false
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/ExpandTypeTemplate'
+      x-santander-dictionary-entity: ExpandParameterTemplate
+    BillId:
+      name: bill_id
+      in: path
+      description: Identificador do Boleto
+      required: true
+      style: simple
+      explode: false
+      schema:
+        maxLength: 23
+        minLength: 0
+        type: string
+        format: <beneficiaryCode>.<bankNumber>
+        example: 123456.123456
+        x-santander-security-cdo-level: confidential
+        x-santander-security-encrypt-type: normal    
+    
+
+  requestBodies:
+    RequestBankslip:
+      description: Create request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestBankSlipBase'
